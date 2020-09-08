@@ -6,6 +6,7 @@ Data Models:
 2) Tab
 3) Comment
 4) Review
+
 Comments and reviews are associated with a particular guitar tab/post on the website.
 
 Some Important Website Features:
