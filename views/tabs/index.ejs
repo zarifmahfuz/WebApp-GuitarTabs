@@ -1,0 +1,44 @@
+<%- include("../partials/header") %>
+
+<div class="container">
+	<header class="jumbotron">
+		<div class="container">
+			<h1>Welcome to the Guitar Hub!</h1>
+			<p>Created by Zarif Mahfuz</p>
+			<p>
+				<a class="btn btn-primary btn-lg" href="/tabs/new">Add New Tab</a>
+			</p>
+		</div>
+	</header>
+
+	<div class="row text-center" style="display:flex; flex-wrap:wrap;">
+		<% tabs.forEach(function(tab) { %>
+			<div class="col-md-3 col-sm-6">
+				<div class="thumbnail">
+					<img src="<%=  tab.image %>">
+					<div class="caption">
+						<h4><%= tab.songName %></h4>
+						<% if (tab.rating === 0) { %>
+	                    	<em>No reviews yet.</em>
+	                    <% } else { %>
+	                    <span class="fa fa-star checked"></span>
+	                    <span class="fa fa-star <% if (tab.rating > 1.5) { %> checked <% } %>"></span>
+	                    <span class="fa fa-star <% if (tab.rating > 2.5) { %> checked <% } %>"></span>
+	                    <span class="fa fa-star <% if (tab.rating > 3.5) { %> checked <% } %>"></span>
+	                    <span class="fa fa-star <% if (tab.rating > 4.5) { %> checked <% } %>"></span>
+	                    <% } %>
+					</div>
+					<p>
+						<!-- go to the show route -->
+						<a href="/tabs/<%= tab._id %>" class="btn btn-primary">See Full</a>
+					</p>
+				</div>
+			</div>
+		<% }); %>
+	</div>
+
+</div>
+
+
+
+<%- include("../partials/footer") %>

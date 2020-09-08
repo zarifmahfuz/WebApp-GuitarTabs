@@ -1,0 +1,116 @@
+<%- include("../partials/header") %>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="thumbnail">
+				<img class="img-responsive" src="<%= tab.image %>">
+				<div class="caption-full">
+					<h4 class="pull-right">Song Artist: <%=tab.artist%></h4>
+					<h4><a><%= tab.songName %></a></h4>
+					<p><%- tab.description %></p>
+					<p>
+						<em>Posted by <%= tab.author.username %>, <%= moment(tab.createdAt).fromNow() %></em>	
+					</p>
+					<% if (currentUser && tab.author.id.equals(currentUser._id)) { %>
+						<a class="btn btn-warning" href="/tabs/<%=tab._id%>/edit">Edit</a>
+						<form class="delete-form" action="/tabs/<%=tab._id%>?_method=DELETE" method="POST">
+							<button class="btn btn-danger">Delete</button>
+						</form>
+					<% } %>
+					<div style="margin-top: 10px;">
+                        <a class="btn btn-default" href="/tabs"><i class="fa fa-arrow-left"></i> Go back</a>
+                    </div>
+				</div>
+			</div>
+
+			<!--Review section-->
+            <div class="thumbnail">
+                <div class="caption-full">
+                    <% if (tab.rating === 0) { %>
+                    <h5>
+                        <em>No reviews yet.</em>
+                    </h5>
+                    <% } else { %>
+                    <p>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star <% if (tab.rating > 1.5) { %> checked <% } %>"></span>
+                        <span class="fa fa-star <% if (tab.rating > 2.5) { %> checked <% } %>"></span>
+                        <span class="fa fa-star <% if (tab.rating > 3.5) { %> checked <% } %>"></span>
+                        <span class="fa fa-star <% if (tab.rating > 4.5) { %> checked <% } %>"></span>
+                        <em>(total reviews: <%= tab.reviews.length %>)</em>
+                    </p>
+                    <p>
+                        Current tab rating: <strong><%= tab.rating.toFixed(2) %></strong>
+                    </p>
+                    <p><h4>Latest reviews for this tab:</h4></p>
+                    <hr style="margin-top: 0;">
+                    <% tab.reviews.slice(0, 5).forEach(function(review){ %>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <%- '<span class="fa fa-star checked"></span>'.repeat(review.rating) %><%- '<span class="fa fa-star"></span>'.repeat(5 - review.rating) %>
+                            <div>Review by: <strong><%= review.author.username %></strong></div>
+                            <span><em><%= review.updatedAt.toDateString() %></em></span>
+                        </div>
+                        <div class="col-md-9">
+                            <p style="text-align: justify; word-wrap: break-word;">
+                                <%= review.text %>
+                            </p>
+                            <% if(currentUser && review.author.id.equals(currentUser._id)){ %>
+                            <a class="btn btn-xs btn-warning"
+                               href="/tabs/<%=tab._id %>/reviews/<%=review._id %>/edit">Edit</a>
+                            <form id="delete-form" action="/tabs/<%=tab._id %>/reviews/<%=review._id %>?_method=DELETE" method="POST">
+                                <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+                            </form>
+                            <% } %>
+                        </div>
+                    </div>
+                    <hr>
+                    <% }); %>
+                    <div style="margin-bottom: 10px;">
+                        <h4><a href="/tabs/<%= tab._id %>/reviews"><i class="fa fa-search" aria-hidden="true"></i> See all reviews</a></h4>
+                    </div>
+                    <% } %>
+                    <div>
+                        <a class="btn btn-primary btn-lg <% if (currentUser && tab.reviews.some(function (review) {return review.author.id.equals(currentUser._id)})) { %> disabled <% } %>" href="/tabs/<%= tab._id %>/reviews/new">
+                            Write a New Review</a>
+                    </div>
+                </div>
+            </div>
+
+			<!-- comments section  -->
+			<div class="well">
+				<div class="text-right">
+					<a class = "btn btn-success" href="/tabs/<%= tab._id %>/comments/new">Add New Comment</a>
+				</div>
+				<hr>
+				<% tab.comments.forEach(function(comment) { %>
+					<div class="row">
+						<div class="col-md-12">
+							<strong><%= comment.author.username %></strong>
+							<span class="pull-right"><%= moment(comment.createdAt).fromNow() %></span>
+							<p>
+								<%= comment.text %>
+							</p>
+							<% if (currentUser && comment.author.id.equals(currentUser._id)) { %>
+								<a class="btn btn-xs btn-warning" 
+										href="/tabs/<%=tab._id%>/comments/<%=comment._id%>/edit">
+										Edit
+								</a>
+								<form class="delete-form" 
+									  action="/tabs/<%=tab._id%>/comments/<%=comment._id%>?_method=DELETE" method="POST">
+									<input type="submit" class="btn btn-xs btn-danger" value="Delete">
+								</form>
+							<% } %>
+							
+						</div>
+					</div>
+					
+				<% }); %>
+			</div>
+		</div>
+		
+	</div>
+</div>
+
+<%- include("../partials/footer") %>
