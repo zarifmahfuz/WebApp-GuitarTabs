@@ -19,4 +19,4 @@ Some Important Website Features:
                   - To edit/delete a comment/review, an user must own the comment/review
                   - An user is only allowed to make one review on a post, but can make multiple comments
 4) Reviews: Users can rate a guitar tab from 1 to 5 stars and the average review rating as well as reviews and ratings by other users can be seen on the website
-5 Comments: Users can add comments to a post
+5) Comments: Users can add comments to a post
