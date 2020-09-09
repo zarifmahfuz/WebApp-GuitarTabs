@@ -5,6 +5,8 @@ const Review = require("./review");
 const tabSchema = new mongoose.Schema({
 	songName: String,
 	artist: String,
+	album: String,
+	year: String,
 	image: String,
 	description: String,
 	createdAt: { type: Date, default: Date.now },
