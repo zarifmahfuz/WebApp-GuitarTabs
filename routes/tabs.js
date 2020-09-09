@@ -25,10 +25,12 @@ router.post("/", middleware.isLoggedIn, async (req,res) => {
 		// get data from the form and create a tab object
 		const songName = req.body.songName;
 		const artist = req.body.artist;
+		const album = req.body.album;
+		const year = req.body.year;
 		const image = req.body.image;
 		const desc = req.body.description;
 		const author = { id: req.user._id, username: req.user.username };
-		const newTab = {songName:songName, artist:artist, image:image, description:desc, author:author};
+		const newTab = {songName:songName, artist:artist, album:album, year: year, image:image, description:desc, author:author};
 		// create a new tab and save to database
 		newlyCreated = await Tab.create(newTab);
 		res.redirect("/tabs");
