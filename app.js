@@ -1,15 +1,15 @@
 const express 				= require("express"),
-	  app 					= express(),
+	  app 				= express(),
 	  bodyParser 			= require("body-parser"),
-	  mongoose 				= require("mongoose"),
-	  flash 				= require("connect-flash"),
-	  passport 				= require("passport"),
+	  mongoose 			= require("mongoose"),
+	  flash 			= require("connect-flash"),
+	  passport 			= require("passport"),
 	  localStrategy 		= require("passport-local"),
-	  passportLocalMongoose = require("passport-local-mongoose"),
+	  passportLocalMongoose 	= require("passport-local-mongoose"),
 	  methodOverride 		= require("method-override"),
-	  Memory 				= require("./models/tab"),
-	  Comment 				= require("./models/comment"),
-	  User 					= require("./models/user");
+	  Memory 			= require("./models/tab"),
+	  Comment 			= require("./models/comment"),
+	  User 				= require("./models/user");
 
 const tabRoutes = require("./routes/tabs"),
 	  commentRoutes = require("./routes/comments"),
